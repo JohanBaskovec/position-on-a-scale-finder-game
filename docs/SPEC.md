@@ -134,15 +134,16 @@ la paire (gauche/droite inversés) pour varier.
 ### Score
 ```
 distance = |guess - target|
-points   = distance <= 7  ? 4
-         : distance <= 14 ? 3
-         : distance <= 21 ? 2
-         : distance <= 28 ? 1
+points   = distance <= 3.5  ? 4
+         : distance <= 7    ? 3
+         : distance <= 10.5 ? 2
+         : distance <= 14   ? 1
          : 0
 ```
-Seuils en constantes : `SCORE_BANDS = [{max: 7, points: 4}, {max: 14, points: 3}, {max: 21, points: 2}, {max: 28, points: 1}]`.
+Seuils en constantes : `SCORE_BANDS = [{max: 3.5, points: 4}, {max: 7, points: 3}, {max: 10.5, points: 2}, {max: 14, points: 1}]`.
 
-Le curseur du devineur est un entier (pas de 1) ; les bornes sont incluses.
+Le curseur du devineur est un entier (pas de 1) ; les bornes sont incluses, donc les écarts effectifs
+sont ≤ 3, ≤ 7, ≤ 10 et ≤ 14. Les zones sont deux fois plus petites que dans la première version.
 
 ## 6. Interface et ergonomie
 
@@ -162,7 +163,7 @@ Le curseur du devineur est un entier (pas de 1) ; les bornes sont incluses.
 - [ ] « Autres concepts » change la paire, pas la cible ; une paire ne revient pas dans la partie.
 - [ ] « Valider l'indice » impossible avec un champ vide ou composé d'espaces.
 - [ ] Le curseur se déplace au doigt, à la souris et aux flèches du clavier.
-- [ ] Points corrects aux bornes : écart 7 → 4, 8 → 3, 14 → 3, 15 → 2, 28 → 1, 29 → 0.
+- [ ] Points corrects aux bornes : écart 3 → 4, 4 → 3, 7 → 3, 8 → 2, 10 → 2, 11 → 1, 14 → 1, 15 → 0.
 - [ ] Les équipes alternent bien ; nombre total d'indices = 2 × tours.
 - [ ] Le récap liste tous les tours avec les bonnes valeurs et le bon total.
 - [ ] Rechargement de la page en cours de partie → reprise possible sans révéler la cible au mauvais

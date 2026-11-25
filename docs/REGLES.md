@@ -32,11 +32,11 @@ proche de la cible, plus on marque de points. Le but : faire le plus de points p
 
 | Écart entre la cible et le curseur | Points |
 |------------------------------------|--------|
-| 7 % ou moins                       | 4      |
-| 14 % ou moins                      | 3      |
-| 21 % ou moins                      | 2      |
-| 28 % ou moins                      | 1      |
-| plus de 28 %                       | 0      |
+| 3,5 % ou moins                     | 4      |
+| 7 % ou moins                       | 3      |
+| 10,5 % ou moins                    | 2      |
+| 14 % ou moins                      | 1      |
+| plus de 14 %                       | 0      |
 
 (Le pourcentage est mesuré sur la longueur totale de la réglette.)
 

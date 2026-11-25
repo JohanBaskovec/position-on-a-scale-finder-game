@@ -163,7 +163,7 @@
       [-1, 1].forEach((side) => {
         const a = Math.min(100, Math.max(0, target + side * inner));
         const b = Math.min(100, Math.max(0, target + side * band.max));
-        if (Math.abs(b - a) < 4.5) return;
+        if (Math.abs(b - a) < 3) return;
         const num = el('span', 'band-num', String(band.points));
         num.style.left = `${(a + b) / 2}%`;
         container.append(num);

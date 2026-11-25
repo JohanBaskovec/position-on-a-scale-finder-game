@@ -64,13 +64,14 @@ Séparer strictement la logique (`game.js`, testable sans navigateur) de l'inter
 
 | Écart        | Points |
 |--------------|--------|
-| ≤ 7          | 4      |
-| ≤ 14         | 3      |
-| ≤ 21         | 2      |
-| ≤ 28         | 1      |
-| > 28         | 0      |
+| ≤ 3,5        | 4      |
+| ≤ 7          | 3      |
+| ≤ 10,5       | 2      |
+| ≤ 14         | 1      |
+| > 14         | 0      |
 
-Bornes incluses. Ces seuils doivent être des constantes nommées dans `game.js`, pas des nombres magiques.
+Bornes incluses. Les zones ont été divisées par deux par rapport à la première version (trop facile).
+Le curseur étant un entier, les écarts effectifs sont ≤ 3, ≤ 7, ≤ 10 et ≤ 14. Ces seuils doivent être des constantes nommées dans `game.js`, pas des nombres magiques.
 
 ## Points d'attention
 

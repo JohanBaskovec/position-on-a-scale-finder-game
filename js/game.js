@@ -11,10 +11,10 @@
 
   // Écart maximal (inclus, en points de pourcentage de la réglette) pour chaque palier de points.
   const SCORE_BANDS = Object.freeze([
-    Object.freeze({ max: 7, points: 4 }),
-    Object.freeze({ max: 14, points: 3 }),
-    Object.freeze({ max: 21, points: 2 }),
-    Object.freeze({ max: 28, points: 1 }),
+    Object.freeze({ max: 3.5, points: 4 }),
+    Object.freeze({ max: 7, points: 3 }),
+    Object.freeze({ max: 10.5, points: 2 }),
+    Object.freeze({ max: 14, points: 1 }),
   ]);
 
   const POSITION_MIN = 0;
