@@ -1,0 +1,372 @@
+/* Le Curseur — styles, mobile d'abord. */
+
+:root {
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --text: #1d1b24;
+  --muted: #625e72;
+  --border: #d9d5ca;
+  --purple: #5b4bd6;
+  --team0: #2a6fdb;      /* fonds (texte blanc dessus) */
+  --team1: #c25a0a;
+  --team0-ink: #1f5fc4;  /* texte sur fond de page */
+  --team1-ink: #b25009;
+  --accent: var(--purple);
+  --danger: #c0392b;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16151c;
+    --surface: #221f2c;
+    --text: #f2f0f7;
+    --muted: #aaa6bb;
+    --border: #3a3650;
+    --team0-ink: #7fb0ff;
+    --team1-ink: #f59a52;
+    --danger: #d9534f;
+  }
+}
+
+body[data-team="0"] { --accent: var(--team0); }
+body[data-team="1"] { --accent: var(--team1); }
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body[data-team] {
+  background: color-mix(in srgb, var(--accent) 13%, var(--bg));
+}
+
+#app {
+  max-width: 480px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+}
+
+#topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+h1, h2, p { margin: 0; }
+
+/* --- Boutons ------------------------------------------------------------- */
+
+button {
+  font: inherit;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.primary, .secondary, .danger, .stepper-btn {
+  min-height: 52px;
+  padding: 0 20px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.primary { background: var(--accent); color: #fff; }
+.secondary { background: transparent; color: var(--text); border-color: var(--border); }
+.danger { background: var(--danger); color: #fff; }
+
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.link-btn {
+  min-height: 44px;
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.actions {
+  margin-top: auto;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* --- Formulaires --------------------------------------------------------- */
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-label { font-weight: 600; font-size: 0.95rem; color: var(--muted); }
+
+input[type="text"] {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 1.15rem;
+}
+
+input[type="text"]:focus { border-color: var(--accent); outline: none; }
+.t0-input { border-left: 8px solid var(--team0); }
+.t1-input { border-left: 8px solid var(--team1); }
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepper-btn {
+  width: 56px;
+  padding: 0;
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+  font-size: 1.6rem;
+}
+
+#rounds-value {
+  min-width: 3ch;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.hint { font-size: 0.9rem; color: var(--muted); }
+.error { min-height: 1.4em; color: var(--danger); font-weight: 600; }
+
+/* --- Menu ---------------------------------------------------------------- */
+
+.menu-head { padding: 24px 0 8px; text-align: center; }
+.menu-head h1 { font-size: 2.6rem; letter-spacing: -0.02em; color: var(--purple); }
+.tagline { margin-top: 6px; color: var(--muted); }
+.menu-form { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+.rules {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.rules summary { cursor: pointer; font-weight: 600; min-height: 24px; }
+.rules ol { margin: 10px 0 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; }
+
+/* --- Passage du téléphone ------------------------------------------------ */
+
+.handoff-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.kicker { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.handoff-lead { font-size: 1.3rem; color: var(--muted); }
+.handoff-team {
+  font-size: clamp(2.2rem, 11vw, 3.4rem);
+  line-height: 1.05;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+.handoff-role { font-size: 1.4rem; font-weight: 600; margin-top: 10px; }
+.score-line { text-align: center; color: var(--muted); font-weight: 600; }
+
+body[data-team="0"] .handoff-team { color: var(--team0-ink); }
+body[data-team="1"] .handoff-team { color: var(--team1-ink); }
+
+/* --- Rôle, indice -------------------------------------------------------- */
+
+.role-line { font-size: 1.15rem; font-weight: 700; color: var(--accent); }
+body[data-team="0"] .role-line { color: var(--team0-ink); }
+body[data-team="1"] .role-line { color: var(--team1-ink); }
+
+.clue-box {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  text-align: center;
+}
+.clue { font-size: clamp(1.8rem, 9vw, 2.6rem); font-weight: 800; overflow-wrap: anywhere; }
+
+/* --- Réglette ------------------------------------------------------------ */
+
+.scale { display: flex; flex-direction: column; gap: 16px; padding: 8px 0; }
+
+.scale-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 4px;
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+.scale-label { max-width: 48%; overflow-wrap: anywhere; }
+.scale-label.right { text-align: right; }
+
+.scale-track {
+  position: relative;
+  height: 72px;
+  margin: 0 20px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.scale-track::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--border);
+}
+.scale-track.interactive { touch-action: none; cursor: pointer; }
+
+.scale-bg { position: absolute; inset: 0; overflow: hidden; border-radius: 10px; }
+.band {
+  position: absolute;
+  top: 0; bottom: 0;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.band-num {
+  position: absolute;
+  top: 6px;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.marker-target {
+  position: absolute;
+  top: -8px; bottom: -8px;
+  width: 4px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: var(--text);
+}
+
+.handle {
+  position: absolute;
+  top: 50%;
+  width: 40px; height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 4px solid var(--surface);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.scale-track:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+.scale.compact .scale-labels { font-size: 0.85rem; font-weight: 700; }
+.scale.compact .scale-track { height: 26px; margin: 0 10px; border-width: 1px; }
+.scale.compact .handle { width: 18px; height: 18px; margin: -9px 0 0 -9px; border-width: 3px; }
+.scale.compact .marker-target { top: -4px; bottom: -4px; width: 3px; margin-left: -1.5px; }
+
+/* --- Résultat ------------------------------------------------------------ */
+
+.points { text-align: center; font-size: clamp(2.6rem, 14vw, 4rem); font-weight: 800; color: var(--accent); padding-top: 12px; }
+.reveal-detail { text-align: center; color: var(--muted); }
+.legend { display: flex; justify-content: center; gap: 20px; margin: 0; padding: 0; list-style: none; font-size: 0.9rem; color: var(--muted); }
+.legend li { display: flex; align-items: center; gap: 6px; }
+.legend-target { width: 4px; height: 18px; border-radius: 2px; background: var(--text); }
+.legend-guess { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); }
+
+/* --- Récapitulatif ------------------------------------------------------- */
+
+.recap-title { font-size: 1.8rem; text-align: center; padding-top: 8px; }
+.total-box { text-align: center; }
+.total { font-size: 3.4rem; font-weight: 800; color: var(--purple); line-height: 1.1; }
+
+.team-table {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 6px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+}
+.team-table .th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); text-align: right; }
+.team-table .th:first-child { text-align: left; }
+.team-table .num { text-align: right; font-weight: 700; }
+
+.t0 { color: var(--team0-ink); font-weight: 700; }
+.t1 { color: var(--team1-ink); font-weight: 700; }
+
+.turn-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.turn-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px 12px;
+}
+.turn-head { display: flex; align-items: baseline; gap: 8px; font-size: 0.9rem; }
+.turn-num { color: var(--muted); font-weight: 700; }
+.turn-who { flex: 1; overflow-wrap: anywhere; }
+.turn-points { font-weight: 800; font-size: 1.2rem; }
+.turn-clue { font-size: 1.25rem; font-weight: 800; margin-top: 2px; overflow-wrap: anywhere; }
+.turn-meta { font-size: 0.85rem; color: var(--muted); }
+
+/* --- Boîte de dialogue --------------------------------------------------- */
+
+dialog {
+  width: min(90vw, 380px);
+  padding: 20px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+}
+dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+dialog form { display: flex; flex-direction: column; gap: 16px; }
+.dialog-actions { display: flex; flex-direction: column; gap: 10px; }
+
+@media (min-width: 600px) {
+  #app { padding-top: 32px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .screen:not([hidden]) { animation: fade-in 0.15s ease-out; }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+}

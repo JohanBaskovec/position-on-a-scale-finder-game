@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#5b4bd6">
+  <meta name="color-scheme" content="light dark">
+  <title>Le Curseur</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b4bd6'/%3E%3Crect x='5' y='14' width='22' height='4' rx='2' fill='white' opacity='.6'/%3E%3Ccircle cx='20' cy='16' r='6' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+
+    <header id="topbar" hidden>
+      <button id="quit-btn" class="link-btn" type="button">Quitter</button>
+      <span id="topbar-info"></span>
+    </header>
+
+    <!-- Menu principal -->
+    <section id="screen-menu" class="screen" aria-labelledby="menu-title" hidden>
+      <div class="menu-head">
+        <h1 id="menu-title">Le Curseur</h1>
+        <p class="tagline">Faites deviner une position entre deux opposés avec un seul mot.</p>
+      </div>
+
+      <form id="menu-form" class="menu-form" novalidate>
+        <label class="field">
+          <span class="field-label">Équipe 1</span>
+          <input id="team-0" class="t0-input" type="text" maxlength="20" autocomplete="off" enterkeyhint="next">
+        </label>
+        <label class="field">
+          <span class="field-label">Équipe 2</span>
+          <input id="team-1" class="t1-input" type="text" maxlength="20" autocomplete="off" enterkeyhint="done">
+        </label>
+
+        <div class="field">
+          <span class="field-label" id="rounds-label">Nombre de tours</span>
+          <div class="stepper" role="group" aria-labelledby="rounds-label">
+            <button id="rounds-minus" class="stepper-btn" type="button" aria-label="Un tour de moins">−</button>
+            <output id="rounds-value" aria-live="polite">5</output>
+            <button id="rounds-plus" class="stepper-btn" type="button" aria-label="Un tour de plus">+</button>
+          </div>
+          <span class="hint" id="rounds-hint"></span>
+        </div>
+
+        <p id="menu-error" class="error" role="alert"></p>
+
+        <details class="rules">
+          <summary>Règles du jeu</summary>
+          <ol>
+            <li>Deux concepts opposés sont placés aux deux bouts d'une réglette. Une cible secrète est tirée au hasard dessus.</li>
+            <li>L'équipe qui donne l'indice voit la cible et propose <strong>un mot</strong> qui se situerait à cet endroit. Impossible de passer son tour !</li>
+            <li>On passe le téléphone : l'autre équipe place le curseur là où elle pense que se trouve la cible.</li>
+            <li>Plus le curseur est proche, plus on marque : <strong>4 points</strong> à 7&nbsp;%, <strong>3</strong> à 14&nbsp;%, <strong>2</strong> à 21&nbsp;%, <strong>1</strong> à 28&nbsp;%.</li>
+            <li>Les rôles s'inversent à chaque fois. Le score est commun : le but est de faire le plus de points ensemble.</li>
+          </ol>
+        </details>
+
+        <div class="actions">
+          <button id="resume-btn" class="secondary" type="button" hidden>Reprendre la partie</button>
+          <button id="play-btn" class="primary" type="submit">Jouer</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Passage du téléphone : aucune information secrète ici -->
+    <section id="screen-handoff" class="screen handoff" aria-live="polite" hidden>
+      <div class="handoff-body">
+        <p id="handoff-round" class="kicker"></p>
+        <p class="handoff-lead">Tour de l'équipe</p>
+        <h2 id="handoff-team" class="handoff-team"></h2>
+        <p id="handoff-role" class="handoff-role"></p>
+        <p id="handoff-warning" class="hint"></p>
+      </div>
+      <p id="handoff-score" class="score-line"></p>
+      <div class="actions">
+        <button id="ready-btn" class="primary" type="button">Prêt</button>
+      </div>
+    </section>
+
+    <!-- Donner l'indice -->
+    <section id="screen-give" class="screen" hidden>
+      <p id="give-team" class="role-line"></p>
+      <div id="give-scale"></div>
+      <p class="hint">Les chiffres indiquent les points gagnés par l'autre équipe selon sa proximité de la cible. Ne montrez pas l'écran&nbsp;!</p>
+      <button id="reroll-btn" class="secondary" type="button">Autres concepts</button>
+
+      <label class="field">
+        <span class="field-label">Votre indice</span>
+        <input id="clue-input" type="text" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Un mot (ou presque)">
+      </label>
+
+      <div class="actions">
+        <button id="clue-btn" class="primary" type="button" disabled>Valider l'indice</button>
+      </div>
+    </section>
+
+    <!-- Deviner -->
+    <section id="screen-guess" class="screen" hidden>
+      <p id="guess-team" class="role-line"></p>
+      <div class="clue-box">
+        <span class="kicker">Indice</span>
+        <p id="guess-clue" class="clue"></p>
+      </div>
+      <div id="guess-scale"></div>
+      <p class="hint">Touchez ou faites glisser le curseur à l'endroit où vous pensez que se situe l'indice.</p>
+      <div class="actions">
+        <button id="guess-btn" class="primary" type="button">Valider</button>
+      </div>
+    </section>
+
+    <!-- Résultat -->
+    <section id="screen-reveal" class="screen" hidden>
+      <p id="reveal-points" class="points"></p>
+      <p id="reveal-detail" class="reveal-detail"></p>
+      <div id="reveal-scale"></div>
+      <ul class="legend" aria-hidden="true">
+        <li><span class="legend-target"></span> Cible</li>
+        <li><span class="legend-guess"></span> Réponse</li>
+      </ul>
+      <p id="reveal-score" class="score-line"></p>
+      <div class="actions">
+        <button id="continue-btn" class="primary" type="button">Continuer</button>
+      </div>
+    </section>
+
+    <!-- Récapitulatif -->
+    <section id="screen-recap" class="screen" aria-labelledby="recap-title" hidden>
+      <h2 id="recap-title" class="recap-title">Récapitulatif</h2>
+      <div class="total-box">
+        <span class="kicker">Score commun</span>
+        <p id="recap-total" class="total"></p>
+      </div>
+      <div id="recap-teams" class="team-table"></div>
+      <ol id="recap-list" class="turn-list"></ol>
+      <div class="actions">
+        <button id="replay-btn" class="primary" type="button">Rejouer</button>
+        <button id="menu-btn" class="secondary" type="button">Menu</button>
+      </div>
+    </section>
+
+  </main>
+
+  <dialog id="quit-dialog">
+    <form method="dialog">
+      <p>Quitter la partie en cours ? Elle sera perdue.</p>
+      <div class="dialog-actions">
+        <button class="secondary" value="cancel">Continuer à jouer</button>
+        <button class="danger" value="quit">Quitter</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/concepts.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>

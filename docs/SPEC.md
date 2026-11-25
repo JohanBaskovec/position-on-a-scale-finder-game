@@ -19,7 +19,7 @@ Tous les écrans sont des `<section>` de `index.html` ; un seul est visible à l
 
 ### 2.1 Menu (`menu`)
 - Titre du jeu.
-- Champ « Équipe 1 » (défaut : « Équipe A »), champ « Équipe 2 » (défaut : « Équipe B »).
+- Champ « Équipe 1 » (défaut : « Les Bleus »), champ « Équipe 2 » (défaut : « Les Oranges »).
   Noms obligatoires, max ~20 caractères, les deux noms doivent être différents.
 - Nombre de tours : sélecteur − / + (min 1, max 20, défaut 5).
 - Lien « Règles » (affiche un résumé des règles).
@@ -28,7 +28,8 @@ Tous les écrans sont des `<section>` de `index.html` ; un seul est visible à l
 - Si une partie en cours a été sauvegardée : bouton « Reprendre la partie ».
 
 ### 2.2 Passage du téléphone (`handoff`)
-- Grand texte : « Tour de l'équipe *X* ».
+- Petit texte « Tour de l'équipe », puis le nom *X* en très grand, dans la couleur de l'équipe
+  (bleu pour l'équipe 1, orange pour l'équipe 2 ; l'écran entier prend cette teinte).
 - Sous-titre selon le rôle : « À vous de faire deviner » ou « À vous de deviner ».
 - Rappel discret : tour *n* / *total*, score actuel.
 - Bouton « Prêt ».

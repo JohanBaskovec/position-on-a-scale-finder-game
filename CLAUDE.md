@@ -16,8 +16,8 @@ doit placer le curseur au bon endroit. Plus on est proche, plus on marque de poi
 
 Nom du jeu : **Le Curseur**.
 
-**Statut : conception terminée, toutes les décisions de `docs/DECISIONS.md` sont validées.
-Aucun code écrit pour l'instant.** Toute nouvelle ambiguïté de règle se note dans `docs/DECISIONS.md`.
+**Statut : première version jouable implémentée** conformément à `docs/SPEC.md` et aux décisions validées de
+`docs/DECISIONS.md`. Toute nouvelle ambiguïté de règle se note dans `docs/DECISIONS.md`.
 
 ## Contraintes techniques (non négociables)
 
@@ -32,14 +32,14 @@ Aucun code écrit pour l'instant.** Toute nouvelle ambiguïté de règle se note
 - **Mobile d'abord** : le jeu se joue sur un téléphone tenu en portrait, au doigt. Doit aussi rester
   utilisable sur ordinateur (souris, clavier).
 
-## Structure prévue
+## Structure
 
 ```
 index.html          # structure de toutes les sections/écrans, charge les scripts dans l'ordre
 style.css           # styles, mobile d'abord
-js/concepts.js      # window.CONCEPTS = [ ["Chaud", "Froid"], ... ]  (source de vérité des paires)
+js/concepts.js      # window.CONCEPTS = [ ["Chaud", "Froid"], ... ]  (source de vérité des paires, éditée à la main)
 js/game.js          # logique pure : état, tirages, calcul du score — aucun accès au DOM
-js/ui.js            # rendu des écrans, gestion des événements, liaison avec game.js
+js/ui.js            # rendu des écrans, gestion des événements, liaison avec game.js ; objet global Game = API de game.js
 docs/               # règles, spec, concepts, décisions
 ```
 
