@@ -12,11 +12,12 @@ doit placer le curseur au bon endroit. Plus on est proche, plus on marque de poi
 - Règles complètes : `docs/REGLES.md`
 - Spécification fonctionnelle (écrans, flux, données, score) : `docs/SPEC.md`
 - Banque de paires de concepts et critères de qualité : `docs/CONCEPTS.md`
-- Questions encore ouvertes et choix par défaut retenus : `docs/DECISIONS.md`
+- Décisions de conception validées : `docs/DECISIONS.md`
 
-**Statut : documentation uniquement, aucun code écrit.** Ne pas commencer l'implémentation tant que
-l'utilisateur ne l'a pas demandé. Avant de coder, vérifier `docs/DECISIONS.md` : les points marqués
-« à confirmer » doivent avoir été tranchés par l'utilisateur ou garder leur valeur par défaut.
+Nom du jeu : **Le Curseur**.
+
+**Statut : conception terminée, toutes les décisions de `docs/DECISIONS.md` sont validées.
+Aucun code écrit pour l'instant.** Toute nouvelle ambiguïté de règle se note dans `docs/DECISIONS.md`.
 
 ## Contraintes techniques (non négociables)
 
@@ -79,8 +80,9 @@ Bornes incluses. Ces seuils doivent être des constantes nommées dans `game.js`
 - On **ne peut pas passer son tour** : le bouton de validation de l'indice reste désactivé tant que
   l'indice est vide. On peut en revanche changer de paire de concepts.
 - Une paire de concepts ne doit pas réapparaître pendant la même partie.
-- Éviter qu'un geste accidentel (retour arrière, rechargement) fasse perdre la partie : voir
-  `docs/DECISIONS.md` (sauvegarde locale).
+- Un rechargement accidentel ne doit pas faire perdre la partie : sauvegarde en `localStorage`,
+  reprise sur un écran « Tour de l'équipe X » (jamais directement sur un écran secret).
+- Le score est **commun** aux deux équipes (jeu coopératif) ; le récap détaille la contribution de chaque équipe.
 
 ## Vérification
 

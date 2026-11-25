@@ -45,5 +45,5 @@ proche de la cible, plus on marque de points. Le but : faire le plus de points p
 Après le dernier tour, un récapitulatif liste chaque tour (concepts, indice, cible, réponse, points) et
 le total des points.
 
-> Voir `DECISIONS.md` pour les points de règles encore à préciser (définition exacte d'un « tour »,
-> score commun ou par équipe).
+> Un « tour » du menu = chaque équipe fait deviner une fois. Le score est commun aux deux équipes,
+> avec le détail par équipe dans le récapitulatif.
